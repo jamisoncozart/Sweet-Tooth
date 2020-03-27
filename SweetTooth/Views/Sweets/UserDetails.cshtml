@@ -1,0 +1,24 @@
+@{Layout = "_Layout";}
+
+@using System.Security.Claims
+
+@if(User.Identity.IsAuthenticated)
+{
+  <p>@User.Identity.Name Stats</p>
+  <table>
+    <tr>
+      <th>Stat</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>Sweets Created</td>
+      <td>@Model.TimesCreatedSweet</td>
+    </tr>
+  </table>
+}
+else
+{
+  <h2>Sorry, you need to be logged in to see your stats.</h2>
+  <p>@Html.ActionLink("Register", "Register", "Account", null,  new { @class = "btn btn-primary btn-sm" } )</p>
+  <p>@Html.ActionLink("Log in", "Login", "Account", null,  new { @class = "btn btn-success btn-sm" } )</p>
+}

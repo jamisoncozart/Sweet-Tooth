@@ -31,7 +31,7 @@
         <ul class="nav navbar-nav ml-auto">
           <li class="nav-item">
             <li class="nav-item">
-              <p class="btn btn-link content">@User.Identity.Name</p>
+              @Html.ActionLink(@User.Identity.Name, "UserDetails", "Sweets", null, new { @class="nav-link"})
             </li>
             @using (Html.BeginForm("LogOff", "Account"))
             {
