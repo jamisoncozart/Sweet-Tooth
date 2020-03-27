@@ -109,15 +109,5 @@ namespace SweetTooth.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-
-    [Authorize]
-    [HttpPost]
-    public ActionResult Search(string search)
-    {
-      List<Sweet> model = _db.Sweets.Where(sweet => (sweet.Name.Contains(search))).ToList();
-      return View(model);
-    }
-
-
   }
 }
