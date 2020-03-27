@@ -8,7 +8,6 @@ namespace SweetTooth.Models
     public virtual DbSet<Sweet> Sweets { get; set; }
     public DbSet<Flavor> Flavors { get; set; }
     public DbSet<SweetFlavor> SweetFlavor { get; set; }
-    public DbSet<UserStats> UserStats { get; set; }
     public SweetToothContext(DbContextOptions options) : base(options) { }
   }
 }
