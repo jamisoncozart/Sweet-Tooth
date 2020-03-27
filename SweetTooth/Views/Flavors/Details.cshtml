@@ -1,0 +1,29 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTooth.Models.Flavor
+
+<h2>Flavor Details:</h2>
+<hr/>
+<p>@Html.DisplayFor(model => model.Name)</p>
+
+@if(@Model.Sweets.Count == 0)
+{
+  <p>This item does not belong to any Sweets</p>
+}
+else
+{
+  <h4>Sweets:</h4>
+  <ul>
+  @foreach(var join in Model.Sweets)
+  {
+    <li>@join.Sweet.Name</li>
+    @using (Html.BeginForm("Delete", "Flavors"))
+    {
+      @Html.Hidden("id", @Model.FlavorId)
+      <input type="submit" value="Delete"/>
+    }
+  }
+  </ul>
+}

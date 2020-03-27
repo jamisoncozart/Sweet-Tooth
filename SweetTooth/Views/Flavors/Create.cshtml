@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTooth.Models.Flavor
+
+<h4>Add A New Flavor</h4>
+
+@using (Html.BeginForm())
+{
+
+  @Html.Label("Flavor Name:")
+  <br>
+  @Html.TextBoxFor(model => model.Name)
+  <br>
+  @Html.Label("Select sweet:")
+  <br>
+  @Html.DropDownList("SweetId")
+  <br>
+  <input type="submit" value="Add New Flavor" class="btn btn-dark">
+}
+<br>
+<p>@Html.ActionLink("Show All Flavors", "Index", "Flavors", null,  new { @class = "btn btn-dark btn-large" } )</p>
