@@ -6,15 +6,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace SweetTooth.Controllers
 {
   public class SweetsController : Controller
   {
     private readonly SweetToothContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public SweetsController(SweetToothContext db)
+    public SweetsController(UserManager<ApplicationUser> userManager, SweetToothContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
@@ -26,6 +29,11 @@ namespace SweetTooth.Controllers
     [Authorize]
     public ActionResult Create()
     {
+      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      int userIdInt = int.Parse(userId);
+      UserStats currentUserStats = _db.UserStats.FirstOrDefault(stats => stats.UserId == userIdInt);
+      currentUserStats.TimesCreatedSweet++;
+      _db.SaveChanges();
       ViewBag.SweetId = new SelectList(_db.Sweets, "SweetId", "Name");
       return View();
     }
