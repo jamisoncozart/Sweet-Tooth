@@ -30,10 +30,6 @@ namespace SweetTooth.Controllers
     [Authorize]
     public ActionResult Create()
     {
-      string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      UserStats currentUserStats = _db.UserStats.FirstOrDefault(stats => stats.UserId == userId);
-      currentUserStats.TimesCreatedSweet++;
-      _db.SaveChanges();
       ViewBag.SweetId = new SelectList(_db.Sweets, "SweetId", "Name");
       return View();
     }
@@ -116,14 +112,6 @@ namespace SweetTooth.Controllers
       _db.Sweets.Remove(thisSweet);
       _db.SaveChanges();
       return RedirectToAction("Index");
-    }
-
-    [Authorize]
-    public async Task<ActionResult> UserDetails()
-    {
-      ApplicationUser applicationUser = await _userManager.GetUserAsync(User);
-      UserStats currentUserStats = _db.UserStats.FirstOrDefault(stats => stats.UserId == applicationUser.Id);
-      return View(currentUserStats);
     }
   }
 }

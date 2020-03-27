@@ -40,9 +40,6 @@ namespace SweetTooth.Controllers
     {
       var user = new ApplicationUser { UserName = model.Email};
       IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-      UserStats userStat = new UserStats(user.Id);
-      _db.UserStats.Add(userStat);
-      _db.SaveChanges();
       if (result.Succeeded)
       {
         return RedirectToAction("Login");
