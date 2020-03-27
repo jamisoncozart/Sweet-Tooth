@@ -10,6 +10,8 @@
 
   <div class="sweetFlavors">
     <div class="sweets">
+      <h2>Sweets</h2>
+      <hr>
       <div class="row">
 
         @if(Model.Count == 0)
@@ -19,49 +21,44 @@
 
         @foreach (Sweet sweet in Model)
         {
-          <div class="col-md-6 sweet">
+          <div class="col-md-3 sweet">
             <div class="card">
+              <h5 class="card-header">@Html.ActionLink(@sweet.Name, "Details", "Sweets", new { id = sweet.SweetId } )</h5>
               <div class="card-body">
-                <div class="card-title">
-                  <h4>@Html.ActionLink(@sweet.Name, "Details", "Sweets", new { id = sweet.SweetId } )</h4>
+                <div class="buttons">
+                  <p>@Html.ActionLink("Edit", "Edit", "Sweets", new { id = sweet.SweetId }, new { @class="btn btn-warning btn-sm" })</p>
+                  <p>@Html.ActionLink("Delete", "Delete", "Sweets", new { id = sweet.SweetId }, new { @class="btn btn-danger btn-sm" } )</p>
                 </div>
-                <hr>
-                <p>@Html.ActionLink("Edit", "Edit", "Sweets", new { id = sweet.SweetId }, new { @class="btn btn-warning" })</p>
-                <p>@Html.ActionLink("Delete", "Delete", "Sweets", new { id = sweet.SweetId }, new { @class="btn btn-danger" } )</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <p>@Html.ActionLink("Add new sweet", "Create", "Sweets", null, new { @class = "newBtn btn btn-success btn-block btn-lg"})</p>
+    </div>
+    <div class="flavors">
+      <h2>Flavors</h2>
+      <hr>
+      <div class="row">
+
+        @if(@flavors.Count == 0)
+        {
+          <h3>No flavors yet!</h3>
+        }
+
+        @foreach (Flavor flavor in @flavors)
+        {
+          <div class="col-md-3 flavor">
+            <div class="card">
+              <h5 class="card-header">@Html.ActionLink(@flavor.Name, "Details", "Flavors", new { id = flavor.FlavorId } )</h5>
+              <div class="card-body">
+                <p>@Html.ActionLink("Delete", "Delete", "Flavors", new { id = flavor.FlavorId }, new { @class="btn btn-danger btn-block btn-sm" } )</p>
               </div>
             </div>
           </div>
         }
 
-      </div>
     </div>
-    <div class="flavors">
-
-      @if(@flavors.Count == 0)
-      {
-        <h3>No flavors yet!</h3>
-      }
-
-      @foreach (Flavor flavor in @flavors)
-      {
-        <div class="col-md-6 flavor">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-title">
-                <h4>@Html.ActionLink(@flavor.Name, "Details", "Flavors", new { id = flavor.FlavorId } )</h4>
-              </div>
-              <hr>
-              <p>@Html.ActionLink("Edit", "Edit", "Flavors", new { id = flavor.FlavorId }, new { @class="btn btn-warning" })</p>
-              <p>@Html.ActionLink("Delete", "Delete", "Flavors", new { id = flavor.FlavorId }, new { @class="btn btn-danger" } )</p>
-            </div>
-          </div>
-        </div>
-      }
-
-    </div>
+    <p>@Html.ActionLink("Add new flavor", "Create", "Flavors", null, new { @class = "newBtn btn btn-success btn-block btn-lg"})</p>
   </div>
-
-  <p>@Html.ActionLink("Create an account", "Index", "Account", null,  new { @class = "btn btn-primary btn-large" } )</p>
-  <p>@Html.ActionLink("See all Sweets", "Index", "Sweets", null,  new { @class = "btn btn-success btn-sm" } )</p>
-  <p>@Html.ActionLink("See all Flavors", "Index", "Flavors", null,  new { @class = "btn btn-success btn-sm" } )</p>
 </div>
