@@ -7,6 +7,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace SweetTooth.Controllers
 {
@@ -30,8 +31,7 @@ namespace SweetTooth.Controllers
     public ActionResult Create()
     {
       string userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      int userIdInt = int.Parse(userId);
-      UserStats currentUserStats = _db.UserStats.FirstOrDefault(stats => stats.UserId == userIdInt);
+      UserStats currentUserStats = _db.UserStats.FirstOrDefault(stats => stats.UserId == userId);
       currentUserStats.TimesCreatedSweet++;
       _db.SaveChanges();
       ViewBag.SweetId = new SelectList(_db.Sweets, "SweetId", "Name");
@@ -116,6 +116,14 @@ namespace SweetTooth.Controllers
       _db.Sweets.Remove(thisSweet);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    [Authorize]
+    public async Task<ActionResult> UserDetails()
+    {
+      ApplicationUser applicationUser = await _userManager.GetUserAsync(User);
+      UserStats currentUserStats = _db.UserStats.FirstOrDefault(stats => stats.UserId == applicationUser.Id);
+      return View(currentUserStats);
     }
   }
 }
