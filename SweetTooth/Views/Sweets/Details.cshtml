@@ -1,0 +1,28 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTooth.Models.Sweet;
+
+<h2>Sweet Details</h2>
+<hr />
+<h3>Sweet: @Html.DisplayFor(model => model.Name)</h3>
+
+@if(@Model.Flavors.Count == 0)
+{
+  <p>This Sweet does not contain any Flavors</p>
+}
+else
+{
+  <h4>Flavors:</h4>
+  <ul>
+  @foreach(var join in Model.Flavors)
+  {
+    <li>@Html.ActionLink($"{@join.Flavor.Name}", "Details", "Flavors", new { id = join.FlavorId }, new { @class="content"})</li>
+  }
+  </ul>
+}
+<p>@Html.ActionLink("Add a Flavor", "Create", "Flavors", null,  new { @class = "btn btn-primary btn-large" } )</p>
+<p>@Html.ActionLink("Back to Sweets", "Index", "Sweets", null,  new { @class = "btn btn-primary btn-large" } )</p>
+<p>@Html.ActionLink("Edit Sweet", "Edit", "Sweets", new { id = Model.SweetId }, new { @class = "btn btn-warning btn-large" } )</p>
+<p>@Html.ActionLink("Delete Sweet", "Delete", "Sweets", new { id = Model.SweetId }, new { @class = "btn btn-danger btn-large" } )</p>
