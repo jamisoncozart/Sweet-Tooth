@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 
-namespace RecipeBox.Models
+namespace SweetTooth.Models
 {
 	public class Flavor
 	{
 		public Flavor()
 		{
-			this.Sweets = new HashSet<CategoryFlavor>();
+			this.Sweets = new HashSet<SweetFlavor>();
 		}
     public int FlavorId { get; set; }
 		public string Name { get; set; }
-		public virtual ICollection<CategoryFlavor> Sweets { get; }
+		public virtual ICollection<SweetFlavor> Sweets { get; }
 	}
 }
