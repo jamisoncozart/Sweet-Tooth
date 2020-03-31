@@ -1,0 +1,20 @@
+@{
+  Layout = "_Layout";
+}
+
+@model SweetTooth.Models.Sweet
+
+<h2>Edit</h2>
+
+<h4>Edit this Sweet: @Html.DisplayFor(model => model.Name)</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.SweetId)
+
+    @Html.LabelFor(model => model.Name)
+    @Html.EditorFor(model => model.Name)
+
+    <input type="submit" value="Save" />
+}
+<p>@Html.ActionLink("Back to sweets", "Index", "Home", null,  new { @class = "btn btn-primary btn-large" } )</p>
